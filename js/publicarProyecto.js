@@ -45,6 +45,11 @@ function publicarProyecto(event) {
     btnSubmit.textContent = 'Publicando...';
 
     // Convertir FormData a URLSearchParams para application/x-www-form-urlencoded
+    const usuarioLoginJson = localStorage.getItem('usuarioLogin');
+    const usuarioLogin = JSON.parse(usuarioLoginJson);
+
+    formData.append('idOrganizacion', usuarioLogin.id);
+
     const urlEncodedData = new URLSearchParams(formData).toString();
     console.log('Datos del formulario:', urlEncodedData);
 
@@ -119,7 +124,7 @@ document.addEventListener("DOMContentLoaded",() => {
     const usuarioLogin = JSON.parse(usuarioLoginJson);
 
     //Mostrar los tipos de organizacion al iniciar la pagina
-    fetch('http://localhost:8181/voluntariApp/organizaciones?action=getTipos')
+    fetch('http://localhost:8181/voluntariApp/proyectos?action=getCategorias')
     .then(response => {
         if (!response.ok) {
             throw new Error('Error en la respuesta del servidor');
@@ -129,11 +134,11 @@ document.addEventListener("DOMContentLoaded",() => {
     .then(data => {
         console.log('Respuesta del servidor:', data);
 
-        const select = document.getElementById('tipoOrganizacion');
-        data.forEach(tipo => {
+        const select = document.getElementById('categoria');
+        data.forEach(categoria => {
             const option = document.createElement('option');
-            option.value = tipo.id;
-            option.textContent = tipo.nombre;
+            option.value = categoria.id;
+            option.textContent = categoria.nombre;
             select.appendChild(option);
         });
     })
