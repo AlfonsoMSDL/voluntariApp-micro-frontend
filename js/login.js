@@ -46,7 +46,7 @@ function procesarLogin(event) {
                 }else if(data.rol.nombre == "Organizacion"){
                     window.location.href = '../pages/inicioOrganizacion.html';
                 }else{
-                    //Caso para el admin
+                    window.location.href = '../pages/inicioAdministrador.html';
                 }
             } else {
                 // Error reportado por el servidor
